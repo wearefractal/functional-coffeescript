@@ -87,32 +87,19 @@
 						<li>Leibniz
 							treat statements like math equations, allow general equality 
 							<li>Mid 19th century by Hamilton, De Morgan and Boole
+							<li>Frege - predicate logic
 							<li>Peano formal system of number theory
 							<li>Russell & Whitehead principia mathematica, trying to construct a logical description for math
-
 							<li>Hilbert's <i>program</i>	
 							<li>Propositional Calculus
-								<ul>
-									<li>
-								</ul>
 							<li>Predicate Calculus
-								<ul>
-									<li>
-								</ul>
-						<ul>
+						</ul>
 					</section>
 
 					<section>
-						<h2>Frege (1848 – 1925)</h2>
-						<img src = "img/frege.png" />
-						<ul>
-							<li>Ushers in modern logic with intro of Propositional Calculus integrating Leibniz’s proofs w/ Chrysippus’ connectives
-							<li>Assess the truth of complex statements using connectives
-							<li>Connectives themselves are truth-related and can be interchanged
-							<li>Introduces quantifiers all, some, many, 0*, 1*
-						<ul>
-					</section>
+						<h2>Lambda Calculus and Turing Machines</h2>
 
+					</section>
 
 				</section>
 
@@ -334,6 +321,8 @@ nums = [1, 2, 3, 4]
 # list comprehensions
 cubes = (math.cube num for num in list)
 
+# this = @
+@var
 							</code>
 							</pre>	
 					</section>
@@ -392,6 +381,26 @@ $("img").each (x, img) -> console.log $(img).attr "src"
 					</section>
 
 					<section>
+						<h2>compose / curry</h2>
+						<pre>
+						<code contenteditable>
+# compose: f2(f2(f3())) 
+hello   = (name) -> "hi #{name}"
+exclaim = (str) -> "#{statement} !"
+welcome = _.compose exclaim, hello
+welcome 'DCC'
+# => 'hi DCC!'
+
+# curry / bind / partial application
+hello = -> (greeting) "#{greeting} @name"
+hello = _.bind hello, {name : 'DCC'}, 'hi'
+hello()
+# => 'hi DCC'
+					</code>
+					</pre>
+					</section>
+
+					<section>
 						<h2>monads: wat?</h2>
 						<img src = "img/monad.jpg" />
 					</section>
@@ -403,6 +412,15 @@ $("img").each (x, img) -> console.log $(img).attr "src"
 							<li>state, i/o, concurrency, continuations
 							<li>jquery is a monad!
 					</section>
+					<section>
+					<pre>
+					<code contenteditable>
+$("#menu").fadeIn('fast')
+   .addClass("active")
+   .css('marginRight', '10px')
+					</section>
+				</code>
+			</pre>
 				</section>
 
 				<section>
@@ -411,13 +429,13 @@ $("img").each (x, img) -> console.log $(img).attr "src"
 					<section>
 							<h3>read images from backpage</h3>
 							<pre>
-							<code contenteditable style="font-size:16px;"># client
+							<code contenteditable style="font-size:14px;"># client
 rss = 'http://phoenix.backpage.com/online/exports/Rss.xml?section=4378&category=4424'
 vein.getFeed rss, (err, images) -> # display
 	</code>
 	</pre>
 							<pre>
-							<code contenteditable style="font-size:16px;"># server side service
+							<code contenteditable style="font-size:14px;"># server side service
 module.exports = (res, rss) ->
   # read rss feed
   feedparser.parseUrl(rss)
@@ -440,26 +458,21 @@ module.exports = (res, rss) ->
 					</section>
 
 					<section>
-							<h3>paths</h3>
+							<h3>namespacing</h3>
 							<pre>
-							<code contenteditable style="font-size:16px;">{resolve} = require 'path'
+							<code contenteditable style="font-size:16px;">
 _ = require 'underscore'
-module.exports = (root) ->
-  root ?= process.cwd()
-  paths =
-    root:     ''
-    app:      'app'
-    models:   'app/models'
-    services: 'app/services'
-    client:   'app/web/client'
-    server:   'app/web/server'
-    public:   'app/web/public'
 
-  _.reduce paths, (paths, route, path) ->     
-    paths[path] = resolve "#{root}/#{route}"
-    paths
-  , {}
+ns2obj = (obj, ns) -> 
+  _.reduce (ns.split '.'), (obj, space) ->
+    return obj[space] if obj?[space]?
+  , obj
 
+obj =
+  foo: 
+    bar: 'baz'
+ns = "foo.bar"      
+ns2obj(obj, ns).should.equal 'baz'
 							</code>
 							</pre>
 					</section>
@@ -472,6 +485,8 @@ module.exports = (root) ->
 
 				<section>
 					<h2>holiday hack fest!!</h2>
+					<h3>december 15th</h3>
+					<h3>gangplank chandler</h3>
 				</section>
 
 
