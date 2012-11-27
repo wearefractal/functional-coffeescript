@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Functional CoffeeScript</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h1>Functional</h1>
+					<h2>Coffee-Script</h2>
+        <img src="https://secure.gravatar.com/avatar/d8d6380ff3ae99630da33f9bdeafefd3?s=420&d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png" height = "200" width = "200">
+					<p>
+
+						<small><a href="http://wearefractal.com">Aaron Murray</a> / <a href="http://twitter.com/wearefractal">@WeAreFractal</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>disclaimer</h2>
+					<img src = "img/dude.jpg" />
+				</section>
+
+				<!-- ## PHILOSOPHY ## -->
+
+				<section>
+
+					<section>
+						<h2>Philosophy, logic & math</h2>
+					</section>
+					<section>
+						<h2>Aristotle (384-322 BC)</h2>
+						<img src = "img/aristotle.png" />
+						<p>
+							Syllogism as a tool to determine why one statement is true and another false
+						</p>
+						<ul>
+							<li>All men are mortal
+   						<li>All Greeks are men
+							<li>All Greeks are mortal
+						</ul>
+					</section>
+
+					<section>
+						<h2>Chrysippus of Soli (279-206 BC)</h2>
+						<img src = "img/soli.png" />
+						<ul>
+							<li>Stoic philosopher
+							<li>OG system of propositional logic
+							<li> Moved on from simple subject-predicate statements to complex statements using “connectives” such as
+							AND, OR, IF…THEN
+							<li>Statements are composed of smaller statements strung together; the truth of the whole depends on the truth of the parts 
+						<ul>
+					</section>
+
+					<section>
+						<ul>
+						<li>Leibniz
+							treat statements like math equations, allow general equality 
+							<li>Mid 19th century by Hamilton, De Morgan and Boole
+							<li>Frege - predicate logic
+							<li>Peano formal system of number theory
+							<li>Russell & Whitehead principia mathematica, trying to construct a logical description for math
+							<li>Hilbert's <i>program</i>	
+							<li>Propositional Calculus
+							<li>Predicate Calculus
+						</ul>
+					</section>
+
+					<section>
+						<h2>Lambda Calculus and Turing Machines</h2>
+
+					</section>
+
+				</section>
+
+<section>
+
+	<section><h2>paradigms</h2>
+		<ul>
+			<li>imperative
+			<li>declarative
+			<li>OOP
+			<li>functional
+			<li>logic, agent-oriented, component-based
+		</ul>
+	</section>
+
+	<section>
+		<h2>imperative</h2>
+			<p style="font-size:24px;">
+			With imperative programming you construct programs as a sort of to-do list. Do this, then do this, then do this. You are describing how it should be done, what steps should be taken to do something. So a function in imperative programming is really not similar to a function in math  but is rather a subroutine, a repeatable unit of code
+			</p>
+			<img src = "img/imperativemaze.png"/>
+	</section>
+	<section>
+		<h2>declarative</h2>
+			<ul>
+			<li>expresses <b>what</b> gets done
+			<li>expresses logic without control flow
+			<li>programs then are <b>formal logical</b> systems
+			<li>has become more popular for parallelization
+			<li> SQL, Functional languages like Scheme, etc
+			</ul>
+			<img src = "img/declaremaze.jpg" />
+	</section>
+
+  <section>
+  	<h2>the state of oop</h2>
+  	<ul>
+  		<li>In OOP developers infrequently talk about State or Mutability, because there is only 1 strategy: perpetually Modify state
+			<li>This has proven hard to manage in large and complex systems
+			<li><b>No longer valid with the rise of concurrency and parallelization</b>
+  	</ul>
+
+  </section>
+
+  <section><img src = "img/yo-dawg-state.png"/></section>
+  <section><img src = "img/romney-big.png"/></section>
+
+    <section>
+  	<h2>the state of functional programming</h2>
+  	<ul>
+	  	<li>Functional programming in it’s purest form does not include any way to modify state (anything in “the world” of it’s runtime outside of it’s function)
+		<li>Programmers are forced to explicitly consider state (and scope) management strategies, which it turns out to simplify things 
+		<li>Functional programming is the only paradigm that can sanely manage concurrency and paralellization
+  	</ul>
+
+  </section>
+
+  <section>
+  	<h2>Concurrency & Parallelization</h2>
+  	<ul>
+  		<li>Concurrency is the shared use of a CPU by threads
+			<li>Parallelization is the use of computing resources in parallel 
+			<li>Both need functional programming 
+		</ul>
+  </section>
+
+  <section>
+  	<h2>nouns vs. verbs</h2>
+  	<ul>
+  		<li><b>User</b> can <b>login</b>
+  		<li><b>User</b> can <b>post</b> a new <b>Message</b>
+  	</ul>
+  </section>
+</section>
+
+				<!-- ## FUNCTIONAL ## -->
+
+				<section>
+					
+					<section>
+						<h2>Functional Programming</h2>	
+						<ul>
+							<li> Based in math
+							<li> Function = output dependent on an input
+							<li> Functions as <b>primary</b> abstraction vs. objects
+							<li> Focus on iterating data structures and applying functions to transform them
+							<li> State as a first class consideration
+							<li> Can still use objects 
+			  			<li> roots in Lambda Calculus
+			  			<li>OOP = a program as a collection of interacting objects
+			  			<li>in FP a program can be thought of as a sequence of stateless function evaluations
+						</ul>
+					</section>
+
+					<section>
+						<h2>Purity</h2>	
+						<p>A “pure function” is a function that takes an input and returns a value:
+						</p>
+						<pre>
+						<code contenteditable>
+f(x) = x + 1  # f(3) = 4
+						</code>
+						</pre>
+						<ul>
+							<li>
+						A pure function is said to be <i><b>referentially transparent</i></b>:
+						given the same value, it will always return the same
+						computed value: <b>f(3) <i>will always</i> = 4</b>
+						<li>
+						A “pure” Functional Programming language such as Haskell only allows functions with no side effects, and state changes are only represented as functions transforming state.
+						see <a href = "#/5"/>Monads</a>
+					</ul>
+
+					</section>										
+
+					<section>
+						<h2>Mutability</h2>
+						<ul>
+							<li>Mutable: can change
+							<li>Immutable: cannot change, a new version must be reconstructed
+							<li>Using Immutable structures allows for massive concurrency and parallelization
+						</ul>
+					</section>
+
+					<section>
+						<h2>Purity has it’s regrets</h2>
+						<ul>
+							<li>In basic math, when you define a function there is no notion of a persistent “world” outside of it
+						<pre>
+						<code contenteditable>
+f(x) = x + 1  # f(3) = 4
+						</code>
+						</pre>
+						  <li>functions don't hold state so..
+							<li>Whenever we modify program state or talk to something outside of a program this is called a Side Effect - which is a first class consideration
+						</ul>
+					</section>
+
+					<section>
+						<h2>Functional Benefits</h2>
+						<ul>
+							<li>Enables more powerful <s>patterns</s> abstractions, and less of them
+							<li>Not as Easy, but it is Simpler
+								<a href = "http://www.infoq.com/presentations/Simple-Made-Easy">http://www.infoq.com/presentations/Simple-Made-Easy</a>
+							<li>More appropriate resolution at which code is reusable (a function, verb)
+							<li>Functions and collections of functions are composable and chainable, like a circuit or protocol layer
+							<li>Map/Reduce type operations cover a wide range of use-cases
+						</ul>
+					</section>
+
+				</section>
+
+		<section>
+			<section>
+			<h2>why javascript</h2>
+		</section>
+
+		<section>
+			<h2>JavahScreept</h2>
+			<ul>
+			<li>JS got first class functions very right
+				<ul>
+				<li> assign functions to vars
+				<li> pass as arguments
+				<li> return 
+				</ul>
+			<li>Just an Event loop for non-blocking I/O written in C, good for some tasks (webserver)
+			<li>Easy as fk, bro
+			<li>Isomorphic- can be deployed in both server and web browser
+			<li>lightweight development
+			<li>Compile target, lots of options for languages and tooling
+			<li>Largest user base in the world ~4.5 million professional
+			</ul>
+			</section>
+
+			<section>
+			<h2>What/why coffeescript</h2>
+			<ul>
+			</ul>
+			<blockquote style="font-size:26px;">
+			JavaScript's C-like syntax, including curly braces and the clunky for statement, makes it appear to be an ordinary procedural language. This is misleading because JavaScript has more in common with functional languages like Lisp or Scheme than with C or Java. It has arrays instead of lists and objects instead of property lists. Functions are first class. It has closures. You get lambdas without having to balance all those parens.
+			</blockquote>
+			<a href = "http://www.crockford.com/javascript/javascript.html"> http://www.crockford.com/javascript/javascript.html</a>					
+			</section>
+
+				<!-- ## COFFEE MATH ## -->
+
+					<section>					
+						<h2>Coffee Math</h2>	
+						<span>Algebra:</span>
+							<pre>
+							<code contenteditable>
+f(x) = x + 1  # f(3) = 4
+							</code>
+							</pre>
+							<span>CoffeeScript:</span>
+							<pre>
+							<code contenteditable>
+f = (x) -> x + 1  
+f(3) # => 4
+							</code>
+							</pre>
+					</section>
+
+					<section>
+						<h2>coffee idioms</h2>
+							<pre>
+							<code contenteditable>
+# function = ->
+# var not needed
+# return is implicit
+
+var add = function(x, y){ return x + y; } 
+add = (x, y) -> x + y
+
+# lists
+nums = [1, 2, 3, 4]
+
+# list comprehensions
+cubes = (math.cube num for num in list)
+
+# this = @
+@var
+							</code>
+							</pre>	
+					</section>
+
+		</section>
+
+
+
+
+				<section>
+					<section>
+					<h2>Functional idioms</h2>
+					</section>
+					<section>
+						<h2>functions</h2>
+						<pre>
+						<code contenteditable>
+# first class functions
+add = (x, y) -> x + y
+add 1, 2
+# => 3
+
+# anonymous functions
+(foo) -> foo + 1
+
+# higher order functions
+# - accepts one or more functions as arguments
+# - function returns another function
+
+calc = (op, nums...) -> nums.reduce op
+calc add, 1, 2, 3, 4, 5
+# => 15
+					</code>
+					</pre>
+
+					</section>
+					<section>
+						<h2>map / reduce / each</h2>
+						<pre>
+						<code contenteditable>
+[1, 2, 3].map (num) -> num + 1 
+# => [3, 6, 9]
+
+[1, 2, 3].reduce (memo, num) -> memo + num 
+# => 6
+
+sum = (nums...) -> nums.reduce add
+sum 1, 2, 3, 4
+# => 10
+
+# jquery iterate each img
+$("img").each (x, img) -> console.log $(img).attr "src"
+
+					</code>
+					</pre>
+					</section>
+
+					<section>
+						<h2>compose / curry</h2>
+						<pre>
+						<code contenteditable>
+# compose: f2(f2(f3())) 
+hello   = (name) -> "hi #{name}"
+exclaim = (str) -> "#{statement} !"
+welcome = _.compose exclaim, hello
+welcome 'DCC'
+# => 'hi DCC!'
+
+# curry / bind / partial application
+hello = -> (greeting) "#{greeting} @name"
+hello = _.bind hello, {name : 'DCC'}, 'hi'
+hello()
+# => 'hi DCC'
+					</code>
+					</pre>
+					</section>
+
+					<section>
+						<h2>monads: wat?</h2>
+						<img src = "img/monad.jpg" />
+					</section>
+					<section>
+						<ul>
+							<li>structure that represents computations
+							<li>create pipelines to chain operations
+							<li>can be used for control flow in functional
+							<li>state, i/o, concurrency, continuations
+							<li>jquery is a monad!
+					</section>
+					<section>
+					<pre>
+					<code contenteditable>
+$("#menu").fadeIn('fast')
+   .addClass("active")
+   .css('marginRight', '10px')
+					</section>
+				</code>
+			</pre>
+				</section>
+
+				<section>
+					<section><h2>examples</h2></section>
+
+					<section>
+							<h3>read images from backpage</h3>
+							<pre>
+							<code contenteditable style="font-size:14px;"># client
+rss = 'http://phoenix.backpage.com/online/exports/Rss.xml?section=4378&category=4424'
+vein.getFeed rss, (err, images) -> # display
+	</code>
+	</pre>
+							<pre>
+							<code contenteditable style="font-size:14px;"># server side service
+module.exports = (res, rss) ->
+  # read rss feed
+  feedparser.parseUrl(rss)
+  .on 'complete', (meta, articles) ->
+    async.map articles, (article, next) ->
+      request article.link, (error, response, body) ->
+        if not error and response.statusCode is 200
+          jsdom.env
+            html: body
+            scripts: 'http://code.jquery.com/jquery-1.5.min.js'
+          , (err, window) ->
+            $ = window.jQuery
+            $("#viewAdPhotoLayout img").each (idx, image)->
+              next null, ($(image).attr "src")
+    , (error, images) ->
+      console.log error if error?
+      res.reply images
+							</code>
+							</pre>
+					</section>
+
+					<section>
+							<h3>namespacing</h3>
+							<pre>
+							<code contenteditable style="font-size:16px;">
+_ = require 'underscore'
+
+ns2obj = (obj, ns) -> 
+  _.reduce (ns.split '.'), (obj, space) ->
+    return obj[space] if obj?[space]?
+  , obj
+
+obj =
+  foo: 
+    bar: 'baz'
+ns = "foo.bar"      
+ns2obj(obj, ns).should.equal 'baz'
+							</code>
+							</pre>
+					</section>
+
+				</section>
+
+				<section>
+					<h2>One more thing...</h2>
+				</section>
+
+				<section>
+					<h2>holiday hack fest!!</h2>
+					<h3>december 15th</h3>
+					<h3>gangplank chandler</h3>
+				</section>
+
+
+
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
